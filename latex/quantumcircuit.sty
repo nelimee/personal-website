@@ -1,0 +1,365 @@
+% Modified (hopefully improved) version of
+% https://quantumcomputing.stackexchange.com/a/4073/1386
+% Thanks to Niel de Beaudrap for the LaTeX code that helped me build this''
+% package.
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.misc,arrows,calc,positioning,fit}
+
+\tikzset{%
+  cross/.style={
+    cross out, draw, minimum size=#1 / sqrt(2), 
+    inner sep=0pt, outer sep=0pt, rotate=45,
+  },
+  diagcross/.style={path picture={
+      \draw[black]
+      (path picture bounding box.south east) -- (path picture bounding box.north west)
+      (path picture bounding box.south west) -- (path picture bounding box.north east);
+    }
+  },
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                          GRAPHIC OPTION MANAGEMENT                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Minimum size (both width and height) of any gate.
+\def\defgateminsize [#1]{%
+  \def\gateminimumsize{#1};%
+}
+\def\gateminimumsize{2em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%                                COLOR                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\gatebackgroundcolor#1#2{%
+  % Set the gates background color to #1 for the gates in #2.
+  % #1 new color for the background of gates.
+  % #2 drawing commands for the gates.
+  \makeatletter%
+  \def\quantumcircuitbackgroundcolor{#1}%
+  #2%
+  \def\quantumcircuitbackgroundcolor{white}%
+  \makeatother%
+}
+
+\makeatletter
+\def\quantumcircuitbackgroundcolor{white}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                               WIRE MANAGEMENT                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% There are several options to draw wires:
+% 1. An automated (and limited) way by using \defwire and \drawwires.
+% 2. A more manual way that gives more control to the user but is more tedious
+%    using \draw[measure]wire.
+%
+% Method 1:
+% =========
+%
+% \begin{tikzpicture}
+%   % Empty an internal structure to avoid problems.
+%   \let\qmwires\empty
+%   % \dy represents the horizontal space between each gate layer.
+%   \xdef\dy{0.7}
+%   % Define the wires with a name and a vertical position.
+%   \defwire (A) at ({-\dy});
+%   \defwire (B) at ({-2*\dy});
+%   % \dt represents the vertical space between each gate layer.
+%   \xdef\dt{.7}
+%   % Draw all the declared wires for 4 layers of horizontal size \dt.
+%   \drawwires [\dt] (4);
+% \end{tikzpicture}
+%
+% Method 2:
+% =========
+%
+% \begin{tikzpicture}
+%   % \dy represents the horizontal space between each gate layer.
+%   \xdef\dy{0.7}
+%   % Define the wires with a name and a vertical position.
+%   \defwire (A) at ({-\dy});
+%   \defwire (B) at ({-2*\dy});
+%   % \dt represents the vertical space between each gate layer.
+%   \xdef\dt{.7}
+%   % Draw all the wires by hand, each wires will have 4 layers.
+%   \drawwire [\dt] (A) (0) (4);
+%   \drawwire [\dt] (B) (0) (4);
+% \end{tikzpicture}
+%
+% Note that the two code snippets above do exactly the same thing (except the
+% modification of the global variable \qmwires that may have an impact on
+% following codes).
+%
+% Note also that the two methods can be combined together:
+%
+% \begin{tikzpicture}
+%   % \dy represents the horizontal space between each gate layer.
+%   \xdef\dy{0.7}
+%   % Define the wires with a name and a vertical position.
+%   \defwire (A) at ({-\dy});
+%   \defwire (B) at ({-2*\dy});
+%   % \dt represents the vertical space between each gate layer.
+%   \xdef\dt{.7}
+%   % Draw all the declared wires for 4 layers of horizontal size \dt.
+%   \drawwires [\dt] (4);
+%   % Add 2 layers at the end (layer 4) of the B wire.
+%   \drawwire [\dt] (B) (4) (2);
+% \end{tikzpicture}
+%
+% WARNING: all the wires should be drawn BEFORE any gate. If you draw a wire
+%          after drawing a gate, no error will occur but the gate might be 
+%          crossed by the newly drawn wire.
+
+\def\defwire (#1) at (#2){%
+  % Define a wire for the following drawing procedure.
+  % Defines the coordinate (#1-0) as an existing position on the wire (i.e. the
+  % coordinate can be used as a starting point for the drawing macros).
+  % #1 is the name of the wire. A good convention would be to use A, B, C, ...
+  % #2 is the horizontal position of the wire. 
+  \ifx\qmwires\empty
+    \edef\qmwires{#1}%
+  \else
+    \edef\qmwires{\qmwires,#1}%
+  \fi
+  \coordinate (#1-0) at ($(0,#2)$)%
+}
+
+\def\drawwire [#1] (#2) (#3) (#4){
+  % Draw a wire.
+  % #1 is the horizontal spacing between layers (\dt).
+  % #2 is the name of the wire.
+  % #3 is an existing position on the wire that will be used as a starting point
+  %    for the drawing.
+  % #4 is number of layers that should be drawn after #3.
+  \foreach[evaluate={ \x=int(#3+\t); \previousx=int(#3+\t-1); }] \t in {1,...,#4} {%
+    \coordinate (#2-\x) at ($(#2-\previousx) + (#1,0)$);
+    \draw (#2-\previousx) -- (#2-\x);
+  }
+}
+
+\def\drawlastwire [#1] (#2) (#3){
+  % Draw the last layer of the given wire.
+  % #1 is the horizontal spacing between layers (\dt).
+  % #2 is the name of the wire.
+  % #3 is an existing position on the wire that will be used as a starting point
+  %    for the drawing.
+  \foreach[evaluate={ \x=int(#3+\t); \previousx=int(#3+\t-1); }] \t in {1,...,1} {%
+    \coordinate (#2-\x) at ($(#2-\previousx) + .5*(#1,0)$);
+    \draw (#2-\previousx) -- (#2-\x);
+  }
+}
+
+\def\drawmeasurewire [#1] (#2) (#3) (#4){
+  % Draw a classical (i.e. doubled) wire.
+  % #1 is the horizontal spacing between layers (\dt).
+  % #2 is the name of the wire.
+  % #3 is an existing position on the wire that will be used as a starting point
+  %    for the drawing.
+  % #4 is number of layers that should be drawn after #3.
+  \foreach[evaluate={ \x=int(#3+\t); \previousx=int(#3+\t-1); }] \t in {1,...,#4} {%
+    \coordinate (#2-\x) at ($(#2-\previousx) + (#1,0)$);
+    \draw[double] (#2-\previousx) -- (#2-\x);
+  }
+}
+
+\def\drawlastmeasurewire [#1] (#2) (#3){
+  % Draw the last layer of the given classical (i.e. doubled) wire.
+  % #1 is the horizontal spacing between layers (\dt).
+  % #2 is the name of the wire.
+  % #3 is an existing position on the wire that will be used as a starting point
+  %    for the drawing.
+  \foreach[evaluate={ \x=int(#3+\t); \previousx=int(#3+\t-1); }] \t in {1} {%
+    \coordinate (#2-\x) at ($(#2-\previousx) + (.5*#1,0)$);
+    \draw[double] (#2-\previousx) -- (#2-\x);
+  }
+}
+
+\def\drawwires [#1] (#2){%
+  % Automatically draw all the defined wires with #2 layers.
+  % #1 is the horizontal spacing between layers (\dt).
+  % #2 is the number of layers to draw.
+  \xdef\u{0}
+  \foreach \l in \qmwires {%
+    \drawwire[#1] (\l) (0) (#2);
+  }
+}
+
+\def\inputlabel (#1) [#2]{%
+  % Add a label at the left of the circuit to the given wire.
+  % #1 is the coordinate concerned, i.e. (A-0) for the wire named A. You
+  % probably do not want anything else than a (XXX-0) coordinate here.
+  % #2 is the label to draw (text, math, ...).
+  \node at (#1) [anchor=east] {#2};
+}
+\def\outputlabel (#1) [#2]{%
+  % Add a label at the right of the circuit to the given wire.
+  % #1 is the coordinate concerned, i.e. (A-10) for the wire named A. You
+  % probably do not want anything else than a (XXX-[last_coordinate]) coordinate
+  % here.
+  % #2 is the label to draw (text, math, ...).
+  \node at (#1) [anchor=west] {#2};
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 GATE DRAWING                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       1-WIRE GATES                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\gate (#1) [#2]{%
+  % Draw a 1-wire squared gate.
+  % #1 is an existing coordinate where the gate will be drawn.
+  % #2 is the label to draw inside the squared gate (text, math, ...)
+  \node [
+  draw=black, fill={\quantumcircuitbackgroundcolor}, inner sep=0pt, outer sep=0pt,
+  minimum width={\gateminimumsize}, minimum height={\gateminimumsize},
+  ] (#1) at (#1) {#2};
+}
+
+\def\roundgate (#1) [#2]{%
+  % Draw a 1-wire rounded gate.
+  % #1 is an existing coordinate where the gate will be drawn.
+  % #2 is the label to draw inside the rounded gate (text, math, ...)
+  \node [
+    draw=black, fill={\quantumcircuitbackgroundcolor}, inner sep=0pt, outer sep=0pt,
+    minimum width={\gateminimumsize}, minimum height={\gateminimumsize},
+    circle,
+  ] (#1) at (#1) {#2};
+}
+
+\def\notgate (#1){%
+  % Draw a stylised NOT gate.
+  % #1 is an existing coordinate where the gate will be drawn.
+  \roundgate (#1) [];
+  \draw (#1) node[cross=\gateminimumsize, fill={\quantumcircuitbackgroundcolor}] {};
+}
+
+\def\meas (#1) [#2]{%
+  % Draw a measure gate.
+  % #1 is an existing coordinate where the gate will be drawn.
+  % #2 is a label to add a precision about the measurement basis on the
+  %    measurement gate. This parameter can be left blank if no precision
+  %    is needed.
+  \node [
+    draw=black, fill={\quantumcircuitbackgroundcolor}, %inner sep=2pt,
+    label distance=-5mm, minimum height={\gateminimumsize}, minimum width={\gateminimumsize}
+  ] (#1) at (#1) {};
+  \draw (#1.south) ++(150:.5*\gateminimumsize) arc (150:30:.5*\gateminimumsize);
+  \draw ($(#1.south) + (0,1mm)$) -- ++(.4*\gateminimumsize,.5*\gateminimumsize);
+  \node [
+    anchor=north west, inner sep=1.5pt, font=\small
+  ] at (#1.north west) {#2};
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       2-WIRE GATES                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\swapgate (#1) (#2){%
+  % Draw a stylised SWAP gate between #1 and #2.
+  % #1 is the first coordinate of the gate.
+  % #2 is the second coordinate of the gate.
+  \draw [black] (#1) -- (#2);
+  \draw (#1) node[diagcross] {};
+  \draw (#2) node[diagcross] {};
+}
+
+\def\ctrlgate (#1) (#2) [#3]{%
+  % Draw a controlled squared gate.
+  % #1 is the coordinate of the control.
+  % #2 is the coordinate of the target.
+  % #3 is the label to draw in the squared gate.
+  \filldraw [black] (#1) circle (2pt) -- (#2);
+  \gate (#2) [#3]
+}
+
+\def\ctrlroundgate (#1) (#2) [#3]{%
+  % Draw a controlled round gate.
+  % #1 is the coordinate of the control.
+  % #2 is the coordinate of the target.
+  % #3 is the label to draw in the round gate.
+  \filldraw [black] (#1) circle (2pt) -- (#2);
+  \roundgate (#2) [#3]
+}
+
+\def\cnotgate (#1) (#2){%
+  % Draw a stylised controlled NOT gate.
+  % #1 is the coordinate of the control.
+  % #2 is the coordinate of the target.
+  \filldraw [black] (#1) circle (2pt) -- (#2);
+  \notgate (#2);
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       3-WIRE GATES                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\ctrlswapgate (#1) (#2) (#3){%
+  % Draw a stylised controlled SWAP gate.
+  % #1 is the coordinate of the control.
+  % #2 is the first coordinate of the target.
+  % #3 is the second coordinate of the target.
+  \filldraw [black] (#1) circle (2pt) -- (#2);
+  \swapgate (#2) (#3);
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                     MULTI-WIRE GATES                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\mgate (#1) (#2) [#3] [#4]{%
+  % Draw a gate on several wires with personalisable bounding-box.
+  % If the parameter #4 is empty, uses #3 for the bounding box.
+  % #1 is the first coordinate that should be included in the gate.
+  % #2 is the second coordinate that should be included in the gate.
+  % #3 is the label that should be drawn in the gate. If #4 is empty, #3 is also
+  %    used to scale the gate width in order to let the whole label be visible
+  %    and inside the gate limits.
+  % #4 is the label that will be used to compute the horizontal size of the gate
+  %    if not empty. WARNING: if #4 is not empty and is horizontally shorter 
+  %    than #3, the drawn text may overflox the gate.
+  \ifx&#4&%
+  \node (#1#2-undertext) at ($(#1)!0.5!(#2)$) {#3};
+  \else
+  \node (#1#2-undertext) at ($(#1)!0.5!(#2)$) {#4};
+  \fi
+  \node [
+    draw=black, fill={\quantumcircuitbackgroundcolor}, inner xsep=0pt, fit=(#1)(#2)(#1#2-undertext),
+    minimum width={\gateminimumsize}, outer sep=0pt,
+    ] (#1#2) {};
+  \node (#1#2-text) at ($(#1)!0.5!(#2)$) {#3};
+}
+
+\def\ctrlmgate (#1) (#2) (#3) [#4] [#5]{%
+  % Draw a controlled gate on several wires with personalisable bounding-box.
+  % If the parameter #4 is empty, uses #3 for the bounding box.
+  % #1 is the coordinate of the control.
+  % #2 is the first coordinate that should be included in the gate.
+  % #3 is the second coordinate that should be included in the gate.
+  % #4 is the label that should be drawn in the gate. If #4 is empty, #3 is also
+  %    used to scale the gate width in order to let the whole label be visible
+  %    and inside the gate limits.
+  % #5 is the label that will be used to compute the horizontal size of the gate
+  %    if not empty. WARNING: if #4 is not empty and is horizontally shorter 
+  %    than #3, the drawn text may overflox the gate.
+  \filldraw [black] (#1) circle (2pt) -- (#2);
+  \mgate (#2) (#3) [#4] [#5];
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                     LINKS                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\dotlink (#1) (#2){%
+  % Draw a link of dots between the coordinates #1 and #2.
+  % #1 is the start of the dotted link.
+  % #2 is the end of the dotted link.
+  \draw[line width=1pt, line cap=round, dash pattern=on 0pt off 3\pgflinewidth, shorten >={\gateminimumsize / sqrt(2)}, shorten <={\gateminimumsize / sqrt(2)}] ($(#1)$) -- ($(#2)$);
+}

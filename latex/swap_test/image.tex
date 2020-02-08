@@ -1,0 +1,42 @@
+\documentclass[convert={density=1000,outext=.png}]{standalone}
+
+\newcommand{\ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
+
+\usepackage{../quantumcircuit}
+\usetikzlibrary{backgrounds}
+
+\begin{document}
+\begin{tikzpicture}[background rectangle/.style={fill=white}, show background rectangle]
+  \let\qmwires\empty
+  % define initial positions of the quantum wires
+  \xdef\dy{0.7}
+  \defgateminsize[1.3em];
+  \defwire (A) at ({-\dy});
+  \defwire (B) at ({-2*\dy});
+  \defwire (C) at ({-3*\dy});
+  % draw wires
+  \xdef\dt{.7}
+  \drawwires [\dt] (4);
+  \drawlastmeasurewire[\dt] (A) (4) (1);
+  \drawlastwire[\dt] (B) (4) (1);
+  \drawlastwire[\dt] (C) (4) (1);
+  
+  % Draw gates
+  \gate (A-1) [$H$];
+  \ctrlswapgate (A-2) (B-2) (C-2);
+  \gate (A-3) [$H$];
+  \meas (A-4) [];
+  % Draw outputs/inputs
+  \node  at ($(B-0)!0.2!(B-1)$) {$/^n$};
+  \node  at ($(C-0)!0.2!(C-1)$) {$/^n$};
+  \inputlabel  (A-0)  [$\ket{ 0 }$];
+  \inputlabel  (B-0)  [$\ket{ \psi_1 }$];
+  \inputlabel  (C-0)  [$\ket{ \psi_2 }$];
+  \outputlabel (A-5)  [$o_a$];
+\end{tikzpicture}
+\end{document}
+
+% Local Variables:
+% TeX-command-extra-options: "-shell-escape"
+% End:

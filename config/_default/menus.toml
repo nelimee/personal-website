@@ -19,8 +19,13 @@
   weight = 30
 
 [[main]]
+  name = "Talks"
+  url = "#talks"
+  weight = 35
+
+[[main]]
   name = "Publications"
-  url = "#featured"
+  url = "#publications"
   weight = 40
 
 [[main]]

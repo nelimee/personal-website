@@ -1,0 +1,70 @@
+\documentclass[convert={density=1000,outext=.png}]{standalone}
+
+\newcommand{\ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
+
+\usepackage{../quantumcircuit}
+\usetikzlibrary{backgrounds}
+
+\begin{document}
+\begin{tikzpicture}[background rectangle/.style={fill=white}, show background rectangle]
+  \let\qmwires\empty
+  % define initial positions of the quantum wires
+  \xdef\dy{0.7}
+  \defgateminsize[1.3em];
+  \defwire (A) at ({-\dy});
+  \defwire (B) at ({-2*\dy});
+  \defwire (C) at ({-4*\dy});
+  \defwire (D) at ({-5*\dy});
+  \defwire (E) at ({-7*\dy});
+   % draw wires
+  \xdef\dt{1}
+  \drawwires [\dt] (7);
+  \drawlastmeasurewire [\dt] (A) (7) (1);
+  \drawlastmeasurewire [\dt] (B) (7) (1);
+  \drawlastmeasurewire [\dt] (C) (7) (1);
+  \drawlastmeasurewire [\dt] (D) (7) (1);
+  \drawlastmeasurewire [\dt] (E) (7) (1);
+  % Draw gates
+  \gate (A-1) [$H$];
+  \mgate (B-1) (C-1) [$V_1$] [];
+  \mgate (D-1) (E-1) [$V_2$] [];
+  \ctrlmgate (A-2) (B-2) (C-2) [$U_1$] [];
+  \ctrlmgate (A-3) (D-3) (E-3) [$U_2$] [];
+  \cnotgate (B-4) (D-4);
+  \cnotgate (C-5) (E-5);
+  \dotlink (B-4) (C-5);
+  \dotlink (D-4) (E-5);
+  \gatebackgroundcolor{blue}{%
+    \gate (A-5) [$S^\dagger$];
+  }
+  \gate (A-6) [$H$];
+  \gate (B-6) [$H$];
+  \dotlink (B-6) (C-6);
+  \gate (C-6) [$H$];
+  \meas (A-7) [z];
+  \meas (B-7) [z];
+  \dotlink (B-7) (C-7);
+  \meas (C-7) [z];
+  \meas (D-7) [z];
+  \dotlink (D-7) (E-7);
+  \meas (E-7) [z];
+  % Draw outputs/inputs
+  \inputlabel  (A-0)  [$\ket{ 0 }$];
+  \inputlabel  (B-0)  [$\ket{ 0 }$];
+  \inputlabel  (C-0)  [$\ket{ 0 }$];
+  \inputlabel  (D-0)  [$\ket{ 0 }$];
+  \inputlabel  (E-0)  [$\ket{ 0 }$];
+  \outputlabel (A-8)  [$o_a$];
+  \outputlabel (B-8)  [$o_1^1$];
+  \outputlabel (C-8)  [$o_n^1$];
+  \outputlabel (D-8)  [$o_1^2$];
+  \outputlabel (E-8)  [$o_n^2$];
+  % Draw a red box around the destructive SWAP test
+  \node [draw=red, fit=(B-4)(D-4)(E-5)(B-7)(E-7), outer sep=0pt, dashed, thick] (dSWAPtest) {};
+\end{tikzpicture}
+\end{document}
+
+% Local Variables:
+% TeX-command-extra-options: "-shell-escape"
+% End:

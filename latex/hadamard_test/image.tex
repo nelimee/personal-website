@@ -1,0 +1,41 @@
+\documentclass[convert={density=1000,outext=.png}]{standalone}
+
+\newcommand{\ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
+
+\usepackage{../quantumcircuit}
+\usetikzlibrary{backgrounds}
+
+\begin{document}
+\begin{tikzpicture}[background rectangle/.style={fill=white}, show background rectangle]
+  \let\qmwires\empty
+  % define initial positions of the quantum wires
+  \xdef\dy{0.7}
+  \defgateminsize[1.3em];
+  \defwire (A) at ({-\dy});
+  \defwire (B) at ({-2*\dy});
+  % draw wires
+  \xdef\dt{.7}
+  \drawwires [\dt] (5);
+  \drawlastmeasurewire [\dt] (A) (5) (1);
+  \drawlastwire [\dt] (B) (5) (1);
+  % Draw gates
+  \gate (A-1) [$H$];
+  \gatebackgroundcolor{blue}{
+    \gate (A-2) [$S^\dagger$];
+  }
+  \ctrlgate (A-3) (B-3) [$U$];
+  \gate (A-4) [$H$];
+  \meas (A-5) [];
+  % Draw outputs/inputs
+  \node  at ($(B-0)!0.2!(B-1)$) {$/^n$};
+  \inputlabel  (A-0)  [$\ket{ 0 }$];
+  \inputlabel  (B-0)  [$\ket{ \psi }$];
+  \outputlabel (A-6)  [$o_1$];
+  \outputlabel (B-6)  [$\ket{\phi}$];
+\end{tikzpicture}
+\end{document}
+
+% Local Variables:
+% TeX-command-extra-options: "-shell-escape"
+% End:

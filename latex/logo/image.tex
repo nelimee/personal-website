@@ -1,0 +1,21 @@
+\documentclass[tikz, convert={density=2000,size=1024,outname=image-512,outext=.png}, border=0pt]{standalone}
+
+\usepackage{xcolor}
+\usepackage{transparent}
+\usepackage{tikz}
+
+\newcommand{\ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
+
+\begin{document}
+\begin{tikzpicture}
+  \node (ket) at (0, 0) {$\vert{}\phantom{0}\rangle{}$};
+  \node[opacity=.7] (zero) at (0, 0) {0};
+  \node[opacity=.7] (one) at (0, 0) {1};
+  \draw[opacity=1, outer sep=0pt, inner sep = 0pt] (-.2, -.2) rectangle (.2, .2);
+\end{tikzpicture}
+\end{document}
+
+% Local Variables:
+% TeX-command-extra-options: "-shell-escape"
+% End:
