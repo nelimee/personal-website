@@ -87,7 +87,7 @@ lightbox="true" >}}
 It is easy to show that, before the measurement of the ancilla qubit, the \\(n+1\\) qubits are in
 the state
 \\[
-     \vert \Psi \rangle = \frac{\textcolor{blue}{\vert 0 \rangle} \otimes \left( I + sU \right) \vert \psi \rangle + \textcolor{blue}{\vert 1 \rangle} \left( I - sU \right) \vert \psi \rangle}{2}
+     \vert \Psi \rangle = \frac{\textcolor{blue}{\vert 0 \rangle} \left( I + sU \right) \vert \psi \rangle + \textcolor{blue}{\vert 1 \rangle} \left( I - sU \right) \vert \psi \rangle}{2}
      \\]
 where \\(I\\) is the identity operator and
 \\[
@@ -277,10 +277,10 @@ long as you are not afraid of **long** formulas and you remember the following i
 Once the computations done, you should find the following equalities:
 
 \\[\begin{align}
-      P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^\*) + \vert \langle S\_1 \vert S\_2 \rangle\vert^2 + ss^\* \vert \langle S\_1 \vert U\_2^\dagger U\_1 \vert S\_2 \rangle\vert^2 + d\_s + e\_s\right]\\\\\\
-      P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^\*) - \vert \langle S\_1 \vert S\_2 \rangle\vert^2 - ss^\* \vert \langle S\_1 \vert U\_2^\dagger U\_1 \vert S\_2 \rangle\vert^2 + d\_s - e\_s\right]\\\\\\
-      P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^\*) + \vert \langle S\_1 \vert S\_2 \rangle\vert^2 + ss^\* \vert \langle S\_1 \vert U\_2^\dagger U\_1 \vert S\_2 \rangle\vert^2 - d\_s - e\_s\right]\\\\\\
-      P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^\*) - \vert \langle S\_1 \vert S\_2 \rangle\vert^2 - ss^\* \vert \langle S\_1 \vert U\_2^\dagger U\_1 \vert S\_2 \rangle\vert^2 - d\_s + e\_s\right]
+      P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^\*) + \vert \langle S\_1 \vert S\_2 \rangle\vert^2 + ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 + d\_s + e\_s\right]\\\\\\
+      P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^\*) - \vert \langle S\_1 \vert S\_2 \rangle\vert^2 - ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 + d\_s - e\_s\right]\\\\\\
+      P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^\*) + \vert \langle S\_1 \vert S\_2 \rangle\vert^2 + ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 - d\_s - e\_s\right]\\\\\\
+      P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^\*) - \vert \langle S\_1 \vert S\_2 \rangle\vert^2 - ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 - d\_s + e\_s\right]
       \end{align}\\]
 with
 \\[\begin{align}
