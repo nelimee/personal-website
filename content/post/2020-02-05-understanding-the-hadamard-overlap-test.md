@@ -288,8 +288,8 @@ with
       &= 2 \times \Re \left( s \langle S\_2 \vert U\_2 \vert S\_2 \rangle \langle S\_1 \vert U\_1 \vert S\_1\rangle \right)
       \end{align}\\]
 \\[\begin{align}
-      e\_s &= s \langle S\_2 \vert U\_2 \vert S\_1 \rangle \langle S\_1 \vert U\_1 \vert S\_2\rangle + \left( s \langle S\_2 \vert U\_2 \vert S\_1 \rangle \langle S\_1 \vert U\_1 \vert S\_2\rangle \right)^\*\\\\\\
-      &= 2 \times \Re \left( s \langle S\_2 \vert U\_2 \vert S\_1 \rangle \langle S\_1 \vert U\_1 \vert S\_2\rangle \right)
+      e\_s &= s \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2\rangle + \left( s \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2\rangle \right)^\*\\\\\\
+      &= 2 \times \Re \left( s \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2\rangle \right)
       \end{align}\\]
 
 Do you still remember our final goal ? It was to compute

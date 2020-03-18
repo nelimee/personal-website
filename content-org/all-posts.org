@@ -278,8 +278,8 @@
       &= 2 \times \Re \left( s \langle S_2 \vert U_2 \vert S_2 \rangle \langle S_1 \vert U_1 \vert S_1\rangle \right)
       \end{align}$$
       $$\begin{align}
-      e_s &= s \langle S_2 \vert U_2 \vert S_1 \rangle \langle S_1 \vert U_1 \vert S_2\rangle + \left( s \langle S_2 \vert U_2 \vert S_1 \rangle \langle S_1 \vert U_1 \vert S_2\rangle \right)^*\\
-      &= 2 \times \Re \left( s \langle S_2 \vert U_2 \vert S_1 \rangle \langle S_1 \vert U_1 \vert S_2\rangle \right)
+      e_s &= s \langle S_2 \vert U_1 \vert S_1 \rangle \langle S_1 \vert U_2 \vert S_2\rangle + \left( s \langle S_2 \vert U_1 \vert S_1 \rangle \langle S_1 \vert U_2 \vert S_2\rangle \right)^*\\
+      &= 2 \times \Re \left( s \langle S_2 \vert U_1 \vert S_1 \rangle \langle S_1 \vert U_2 \vert S_2\rangle \right)
       \end{align}$$
 
       Do you still remember our final goal ? It was to compute 
@@ -359,5 +359,74 @@
           research articles will be cited in the main text with their title and a link pointing
           to the article and at the end of the post with a format that mimics the usual citation
           format of research articles.
+** Hadamard-Overlap test -- the corner case
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: 2020-02-28-hadamard-overlap-test-the-corner-case
+   :EXPORT_DATE: 2020-02-28
+   :END:
+
+   /This post follows a [previous post]({{< ref "/post/2020-02-05-understanding-the-hadamard-overlap-test.md" >}})/
+   /on this blog. I will assume that you read the first post and refer to it without re-introducing thoroughly the/
+   /notions. You are warned./
+ 
+   I introduced in a
+   [previous post]({{< ref "/post/2020-02-05-understanding-the-hadamard-overlap-test.md" >}})
+   my explanation of the Hadamard-Overlap test, a modification of the well known 
+   [Hadamard-test](https://en.wikipedia.org/wiki/Hadamard_test_(quantum_computation)) that has been
+   introduced in the scientific paper
+   [Variational Quantum Linear Solver: A Hybrid Algorithm for Linear Systems](http://arxiv.org/abs/1909.05820v1).
+
+   The Hadamard-Overlap test is useful to estimate the quantity
+   $$
+   c = \langle 0 \vert V_2^\dagger U_1 V_1 \vert 0 \rangle \langle 0 \vert V_1^\dagger
+   U_2 V_2 \vert 0 \rangle,
+   $$
+   with $U_1$, $U_2$, $V_1$ and $V_2$ being unitary matrices.
+
+   {{< figure 
+   library="true" 
+   src="hadamard-overlap-test.png" 
+   title="Quantum circuit implementing the Hadamard-Overlap test."
+   lightbox="true" >}}
+
+   The motivation behind the theoretical development in 
+   [Understanding the Hadamard-Overlap test]({{< ref "/post/2020-02-05-understanding-the-hadamard-overlap-test.md" >}})
+   was to be able to implement the algorithm, with the final goal
+   of being able to run the Variational Quantul Linear System (VQLS) algorithm on a
+   quantum simulator, and then on real quantum hardware.
+   
+*** A first test-case
+
+    Once the implementation of the Hadamard-Overlap test and VQLS done, the next step was to test it
+    on a simple example. I chose the example given in the original paper
+    [Variational Quantum Linear Solver: A Hybrid Algorithm for Linear Systems](http://arxiv.org/abs/1909.05820v1):
+
+    $$ Ax = b $$
+    with
+    $$ A = 1\\!\\!1 + 0.2 X_1Z_2 + 0.2 X_1 $$
+    and 
+    $$ b = H_1 H_3 H_4 H_5 \vert 0 \rangle^{\otimes 5}. $$
     
-          
+    This test-case turned out to be a very good *test*-case as it exhibited a caveat I did not think
+    about at first glance: what if $U_1$, $U_2$, $V_1$ and $V_2$ are such that the outcome $o_a$ of the 
+    measurement on the ancilla qubit is always $\vert 0 \rangle$? And what about an outcome that is always
+    $\vert 1 \rangle$? It turned out that the first test-case I tried raised this issue.
+
+    If you remember, one step of the Hadamard-Overlap test as presented in the previous post was to estimate
+    the probabilities $P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0})$ and 
+    $P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0})$, representing the chance of success of the
+    destructive SWAP-test when the ancilla qubit has been measured in the state
+    $\textcolor{blue}{\vert 0 \rangle}$ or $\textcolor{blue}{\vert 1 \rangle}$. This means that if we do not
+    have any measurement showing the ancilla qubit in one of the two states, we will not be able to estimate
+    either $P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0})$ or $P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0})$, 
+    which means that the algorithm fails.
+
+   {{< figure 
+   library="true" 
+   src="hadamard-overlap-test-bug.png" 
+   title="One of the quantum circuits obtained when applying the VQLS algorithm on the linear system described in this section."
+   lightbox="true" >}}
+
+    # {{% alert note %}}
+    
+    # {{% /alert %}}
