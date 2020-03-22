@@ -33,6 +33,8 @@ interests:
 - Mathematics
 - Science fiction
 - Basket-Ball
+- Mangas
+- Trips abroad
 
 education:
   courses:

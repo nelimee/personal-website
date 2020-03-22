@@ -28,7 +28,7 @@ date_format = "Jan 2006"
 
   Researches focused on quantum algorithms and their potential applications
   in any field of scientific computing.
-  Particular emphasis made on [PDE](https://en.wikipedia.org/wiki/Partial_differential_equation).
+  Particular emphasis made on [PDE](https://en.wikipedia.org/wiki/Partial_differential_equation) and linear algebra.
   """
 
 [[experience]]
