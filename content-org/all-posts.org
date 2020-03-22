@@ -132,9 +132,9 @@
      the state $\vert 0 \rangle$ with the original circuit) if and only if the bitwise-and of the
      bit-strings formed by $\left\{ o_i^1 \right\}_i$ and $\left\{ o_i^2 \right\}_i$ has an even
      number of ones. Mathematically, the test is successful if
-     $$
+     \begin{equation*}
      \sum_{i=1}^n o_i^1 \land o_i^2 \equiv 0 \pmod{2}.
-     $$
+     \end{equation*}
 
      The two test being equivalent in the sense that they provide the same results, they can
      be used interchangeably. We will use this equivalence in the next section to make the maths 
