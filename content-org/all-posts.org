@@ -1,6 +1,9 @@
 #+HUGO_BASE_DIR: ../
 #+HUGO_SECTION: ./post/
 
+# Notes:
+# 1. colors available: https://en.wikipedia.org/wiki/Web_colors#X11_color_names
+
 * Quantum Computing
   Posts about quantum computing in general.
 ** Understanding the Hadamard-Overlap test
@@ -20,10 +23,10 @@
    [^2].
 
    The goal of the Hadamard-Overlap test is to estimate the quantity
-   $$
+   \begin{equation*}
    c = \langle 0 \vert V_2^\dagger U_1 V_1 \vert 0 \rangle \langle 0 \vert V_1^\dagger
    U_2 V_2 \vert 0 \rangle,
-   $$
+   \end{equation*}
    with $U_1$, $U_2$, $V_1$ and $V_2$ being unitary matrices.
 
    {{% toc %}}
@@ -31,10 +34,10 @@
 *** The Hadamard-Overlap algorithm   
 **** Presentation of the algorithm
     To estimate the quantity 
-    $$
+    \begin{equation*}
     c = \langle 0 \vert V_2^\dagger U_1 V_1 \vert 0 \rangle \langle 0 \vert V_1^\dagger
     U_2 V_2 \vert 0 \rangle,
-    $$
+    \end{equation*}
     the Hadamard-Overlap test executes the circuit below and perform a step of 
     post-processing on the results of the measurements.
 
@@ -82,22 +85,22 @@
 
      It is easy to show that, before the measurement of the ancilla qubit, the $n+1$ qubits are in
      the state
-     $$
+     \begin{equation*}
      \vert \Psi \rangle = \frac{\textcolor{blue}{\vert 0 \rangle} \left( I + sU \right) \vert \psi \rangle + \textcolor{blue}{\vert 1 \rangle} \left( I - sU \right) \vert \psi \rangle}{2} 
-     $$
+     \end{equation*}
      where $I$ is the identity operator and 
-     $$
+     \begin{equation*}
      s = \left\{\begin{split}
      -i & \quad \text{if the } S^\dagger \text{ gate has been applied} \\
      1 & \quad \text{otherwise}
      \end{split}\right.
-     $$
+     \end{equation*}
 
      {{% alert note %}}
      Note that the state of the ancilla qubit has been colored in $\textcolor{blue}{\text{blue}}$. This coloring is here to 
      avoid confusing the different ancilla qubits used in this post.
      {{% /alert %}}
-    
+
 **** The SWAP test
 
      The SWAP test is a quantum algorithm that can be used to estimate how much two quantum states
@@ -154,21 +157,23 @@
      
       Replacing $U$ and $\vert \psi \rangle$ in the expression of the output state of the Hadamard test
       $\vert\Psi\rangle$ by the values listed above gives us the quantum state
-      $$\begin{align}
+      \begin{equation*}
+      \begin{split}
       \vert &\Psi_{2n} \rangle = \frac{\textcolor{blue}{\vert 0 \rangle} \otimes \left( I + sU \right) \vert \psi \rangle + \textcolor{blue}{\vert 1 \rangle} \left( I - sU \right) \vert \psi \rangle}{2} \\
       %&= \textcolor{blue}{\vert 0 \rangle} \otimes \frac{\left( I + s(U_1 \otimes U_2) \right) \vert S_1 \rangle \vert S_2 \rangle}{2} + \textcolor{blue}{\vert 1 \rangle} \otimes \frac{\left( I - s(U_1 \otimes U_2) \right) \vert S_1 \rangle \vert S_2 \rangle}{2} \\
       &= \textcolor{blue}{\vert 0 \rangle} \frac{ \vert S_1 \rangle \vert S_2 \rangle + s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle}{2} + \textcolor{blue}{\vert 1 \rangle} \frac{ \vert S_1 \rangle \vert S_2 \rangle - s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle}{2} \\
-      \end{align}$$
+      \end{split}
+      \end{equation*}
 
       This means that, by ignoring the destructive SWAP test performed in the red squared part of the circuit,
       we have access to the quantum state
-      $$
+      \begin{equation*}
       \vert \phi_{\textcolor{blue}{\vert 0 \rangle}} \rangle = \frac{ \vert S_1 \rangle \vert S_2 \rangle + s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle}{\sqrt{2}}
-      $$
+      \end{equation*}
       if we measured the first ancilla qubit in the state $\vert 0 \rangle$ or
-      $$
+      \begin{equation*}
       \vert \phi_{\textcolor{blue}{\vert 1 \rangle}} \rangle = \frac{ \vert S_1 \rangle \vert S_2 \rangle - s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle}{\sqrt{2}}
-      $$
+      \end{equation*}
       if the first ancilla qubit has been measured in the state $\vert 1 \rangle$.
 
       {{% alert info %}}
@@ -196,9 +201,9 @@
       Finally, in order to avoid re-doing the computation for both $\vert \phi_{\textcolor{blue}{\vert 0 \rangle}} \rangle$
       and $\vert \phi_{\textcolor{blue}{\vert 1 \rangle}} \rangle$ we will use a $\textcolor{blue}{\pm}$ sign to account
       for both states (and $\textcolor{blue}{\mp}$ if there is a sign negation):
-      $$
+      \begin{equation*}
       \vert \phi_{\textcolor{blue}{\vert i \rangle}} \rangle = \frac{ \vert S_1 \rangle \vert S_2 \rangle \textcolor{blue}{\pm} s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle}{\sqrt{2}}.
-      $$
+      \end{equation*}
       
       {{% alert note %}}
       Note that, with the convention we chose for $\textcolor{blue}{\pm}$ and $\textcolor{blue}{\mp}$, 
@@ -210,30 +215,36 @@
 
 
       Lets start the SWAP test by adding the virtual ancilla to the state:
-      $$
+      \begin{equation*}
       \vert \phi_{\textcolor{blue}{\vert i \rangle}} \rangle = \textcolor{red}{\vert 0 \rangle} \frac{ \vert S_1 \rangle \vert S_2 \rangle \textcolor{blue}{\pm} s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle}{\sqrt{2}}.
-      $$
+      \end{equation*}
       Following the algorithm, we apply a $H$ gate to the virtual ancilla:
-      $$
+      \begin{equation*}
       \vert \phi_{\textcolor{blue}{\vert i \rangle}} \rangle = \textcolor{red}{\frac{\vert 0 \rangle + \vert 1 \rangle}{\sqrt{2}}} \frac{ \vert S_1 \rangle \vert S_2 \rangle \textcolor{blue}{\pm} s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle}{\sqrt{2}}.
-      $$
+      \end{equation*}
       Performing the controlled-SWAP operation gives us the state
-      $$\begin{align}
+      \begin{equation*}
+      \begin{split}
       \vert \phi_{\textcolor{blue}{\vert i \rangle}} \rangle =& \frac{ \textcolor{red}{\vert 0 \rangle} \left(\vert S_1 \rangle \vert S_2 \rangle \textcolor{blue}{\pm} s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle \right)}{\sqrt{2} \textcolor{red}{\sqrt{2}}}\\
       +& \frac{\textcolor{red}{\vert 1 \rangle} \left(\vert S_2 \rangle \vert S_1 \rangle \textcolor{blue}{\pm} s U_2\vert S_2 \rangle U_1 \vert S_1 \rangle \right)}{\sqrt{2} \textcolor{red}{\sqrt{2}}},
-      \end{align}$$
+      \end{split}
+      \end{equation*}
       which will then finally be transformed by another $H$ gate to
-      $$\begin{align}
+      \begin{equation*}
+      \begin{split}
       \vert \phi_{\textcolor{blue}{\vert i \rangle}} \rangle =& \frac{ \left(\textcolor{red}{\vert 0 \rangle + \vert 1 \rangle}\right) \left(\vert S_1 \rangle \vert S_2 \rangle \textcolor{blue}{\pm} s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle \right)}{\sqrt{2} \times \textcolor{red}{2}} \\
       +& \frac{\left(\textcolor{red}{\vert 0 \rangle - \vert 1 \rangle}\right) \left(\vert S_2 \rangle \vert S_1 \rangle \textcolor{blue}{\pm} s U_2\vert S_2 \rangle U_1 \vert S_1 \rangle \right)}{\sqrt{2} \times \textcolor{red}{2}}
-      \end{align}$$
+      \end{split}
+      \end{equation*}
       Factorising by the state of the virtual ancilla, we obtain the expression
-      $$\begin{align}
+      \begin{equation*}
+      \begin{split}
       \vert \phi_{\textcolor{blue}{\vert i \rangle}} \rangle =& \frac{ \textcolor{red}{\vert 0 \rangle} \left(\vert S_1 \rangle \vert S_2 \rangle + \vert S_2 \rangle \vert S_1 \rangle \textcolor{blue}{\pm} s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle \textcolor{blue}{\pm} s U_2\vert S_2 \rangle U_1 \vert S_1 \rangle \right)}{2\sqrt{2}} \\
       +& \frac{\textcolor{red}{\vert 1 \rangle} \left(\vert S_1 \rangle \vert S_2 \rangle - \vert S_2 \rangle \vert S_1 \rangle \textcolor{blue}{\pm} s U_1\vert S_1 \rangle U_2 \vert S_2 \rangle \textcolor{blue}{\mp} s U_2\vert S_2 \rangle U_1 \vert S_1 \rangle \right)}{2\sqrt{2}} \\
       &\\
       =& \frac{\textcolor{red}{\vert 0 \rangle} \vert \Phi_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{0} \rangle + \textcolor{red}{\vert 1 \rangle} \vert \Phi_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{1} \rangle}{2\sqrt{2}}
-      \end{align}$$
+      \end{split}
+      \end{equation*}
 
       Because of the introduction of the virtual ancilla qubit, the state 
       $\vert \phi_{\textcolor{blue}{\vert i \rangle}} \rangle$ is not exactly the state we would have with the
@@ -251,9 +262,9 @@
       SWAP test.
 
       We have:
-      $$
+      \begin{equation*}
       P_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{j}) = \frac{\langle \Phi_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \vert \Phi_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \rangle}{(2\sqrt{2})^2} = \frac{\langle \Phi_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \vert \Phi_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \rangle}{8}
-      $$
+      \end{equation*}
       
       Computing the exact values of the $4$ possible $P_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{j})$ is quite easy as
       long as you are not afraid of *long* formulas and you remember the following identities:
@@ -266,53 +277,59 @@
 
       Once the computations done, you should find the following equalities:
       
-      $$\begin{align}
+      \begin{equation*}
+      \begin{split}
       P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^*) + \vert \langle S_1 \vert S_2 \rangle\vert^2 + ss^* \vert \langle S_1 \vert U_1^\dagger U_2 \vert S_2 \rangle\vert^2 + d_s + e_s\right]\\
       P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^*) - \vert \langle S_1 \vert S_2 \rangle\vert^2 - ss^* \vert \langle S_1 \vert U_1^\dagger U_2 \vert S_2 \rangle\vert^2 + d_s - e_s\right]\\
       P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^*) + \vert \langle S_1 \vert S_2 \rangle\vert^2 + ss^* \vert \langle S_1 \vert U_1^\dagger U_2 \vert S_2 \rangle\vert^2 - d_s - e_s\right]\\
       P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^*) - \vert \langle S_1 \vert S_2 \rangle\vert^2 - ss^* \vert \langle S_1 \vert U_1^\dagger U_2 \vert S_2 \rangle\vert^2 - d_s + e_s\right]
-      \end{align}$$
+      \end{split}
+      \end{equation*}
       with
-      $$\begin{align}
+      \begin{equation*}
+      \begin{split}
       d_s &= s \langle S_2 \vert U_2 \vert S_2 \rangle \langle S_1 \vert U_1 \vert S_1\rangle + \left( s \langle S_2 \vert U_2 \vert S_2 \rangle \langle S_1 \vert U_1 \vert S_1\rangle \right)^*\\
       &= 2 \times \Re \left( s \langle S_2 \vert U_2 \vert S_2 \rangle \langle S_1 \vert U_1 \vert S_1\rangle \right)
-      \end{align}$$
-      $$\begin{align}
+      \end{split}
+      \end{equation*}
+      \begin{equation*}
+      \begin{split}
       e_s &= s \langle S_2 \vert U_1 \vert S_1 \rangle \langle S_1 \vert U_2 \vert S_2\rangle + \left( s \langle S_2 \vert U_1 \vert S_1 \rangle \langle S_1 \vert U_2 \vert S_2\rangle \right)^*\\
       &= 2 \times \Re \left( s \langle S_2 \vert U_1 \vert S_1 \rangle \langle S_1 \vert U_2 \vert S_2\rangle \right)
-      \end{align}$$
+      \end{split}
+      \end{equation*}
 
       Do you still remember our final goal ? It was to compute 
-      $$
+      \begin{equation*}
       c = \langle 0 \vert V_2^\dagger U_1 V_1 \vert 0 \rangle \langle 0 \vert V_1^\dagger
       U_2 V_2 \vert 0 \rangle.
-      $$
+      \end{equation*}
 
       Remember also that we defined $\vert S_i \rangle = V_i \vert 0 \rangle$. Including this in the definition of $c$, 
       we end up with
-      $$
+      \begin{equation*}
       c = \langle S_2 \vert U_1 \vert S_1 \rangle \langle S_1 \vert U_2 \vert S_2 \rangle.
-      $$
+      \end{equation*}
 
       So the quantity $e_s$ is directly linked to $c$ by the equality
-      $$e_s = 2\times \Re(sc).$$
+      \begin{equation*}e_s = 2\times \Re(sc).\end{equation*}
 
       But remember! $s$ is not any complex, it can only take two values: $1$ when the $S^\dagger$ gate is
       not included in the Hadamard-Overlap circuit, $-i$ otherwise. So we can compute the $2$ possible values
       for $e_s$:
       
-      $$e_1 = 2 \times \Re(c)$$
-      $$e_{-i} = 2 \times \Re(-ic) = 2 \times \Im(c)$$
+      \begin{equation*}e_1 = 2 \times \Re(c)\end{equation*}
+      \begin{equation*}e_{-i} = 2 \times \Re(-ic) = 2 \times \Im(c)\end{equation*}
 
       Nice! This means that if we can estimate the values of $e_1$ and $e_{-i}$, we solve our problem!
       And looking at the value of each $P_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{j})$, 
       we solved our problem because
-      $$e_s = \left( P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) - P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{1}) \right) - \left( P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) - P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{1}) \right).$$
+      \begin{equation*}e_s = \left( P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) - P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{1}) \right) - \left( P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) - P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{1}) \right).\end{equation*}
       
       Using the identity
-      $$P_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{0}) = 1 - P_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{1})$$
+      \begin{equation*}P_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{0}) = 1 - P_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{1})\end{equation*}
       we can simplify this expression to
-      $$e_s = 2 \left( P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) - P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) \right).$$
+      \begin{equation*}e_s = 2 \left( P_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) - P_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) \right).\end{equation*}
 
       In other words, estimating $c$ boils down to estimating the probabilities of success of the destructive SWAP test performed in 
       the red squared part of the Hadamard-Overlap circuit for
@@ -322,7 +339,7 @@
 *** Summary of the method and conclusion
 **** Summary of the method
 
-     To approximate $$c = \langle 0 \vert V_2^\dagger U_1 V_1 \vert 0 \rangle \langle 0 \vert V_1^\dagger U_2 V_2 \vert 0 \rangle,$$ the algorithm works in 2 steps:
+     To approximate \begin{equation*}c = \langle 0 \vert V_2^\dagger U_1 V_1 \vert 0 \rangle \langle 0 \vert V_1^\dagger U_2 V_2 \vert 0 \rangle,\end{equation*} the algorithm works in 2 steps:
      1. Approximate the real-part of $c$.
      2. Approximate the imaginary-part of $c$.
      Both steps are exactly the same, except that for the first step you will not include the blue $S^\dagger$ gate in the Hadamard-Overlap quantum circuit whereas
@@ -377,10 +394,10 @@
    [Variational Quantum Linear Solver: A Hybrid Algorithm for Linear Systems](http://arxiv.org/abs/1909.05820v1).
 
    The Hadamard-Overlap test is useful to estimate the quantity
-   $$
+   \begin{equation*}
    c = \langle 0 \vert V_2^\dagger U_1 V_1 \vert 0 \rangle \langle 0 \vert V_1^\dagger
    U_2 V_2 \vert 0 \rangle,
-   $$
+   \end{equation*}
    with $U_1$, $U_2$, $V_1$ and $V_2$ being unitary matrices.
 
    {{< figure 
@@ -401,11 +418,11 @@
     on a simple example. I chose the example given in the original paper
     [Variational Quantum Linear Solver: A Hybrid Algorithm for Linear Systems](http://arxiv.org/abs/1909.05820v1):
 
-    $$ Ax = b $$
+    \begin{equation*} Ax = b \end{equation*}
     with
-    $$ A = 1\\!\\!1 + 0.2 X_1Z_2 + 0.2 X_1 $$
+    \begin{equation*} A = 1\\!\\!1 + 0.2 X_1Z_2 + 0.2 X_1 \end{equation*}
     and 
-    $$ b = H_1 H_3 H_4 H_5 \vert 0 \rangle^{\otimes 5}. $$
+    \begin{equation*} b = H_1 H_3 H_4 H_5 \vert 0 \rangle^{\otimes 5}. \end{equation*}
     
     This test-case turned out to be a very good *test*-case as it exhibited a caveat I did not think
     about at first glance: what if $U_1$, $U_2$, $V_1$ and $V_2$ are such that the outcome $o_a$ of the 

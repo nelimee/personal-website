@@ -16,10 +16,12 @@ personally did not until reading
 [^2].
 
 The goal of the Hadamard-Overlap test is to estimate the quantity
-\\[
-   c = \langle 0 \vert V\_2^\dagger U\_1 V\_1 \vert 0 \rangle \langle 0 \vert V\_1^\dagger
-   U\_2 V\_2 \vert 0 \rangle,
-   \\]
+
+\begin{equation\*}
+c = \langle 0 \vert V\_2^\dagger U\_1 V\_1 \vert 0 \rangle \langle 0 \vert V\_1^\dagger
+U\_2 V\_2 \vert 0 \rangle,
+\end{equation\*}
+
 with \\(U\_1\\), \\(U\_2\\), \\(V\_1\\) and \\(V\_2\\) being unitary matrices.
 
 {{% toc %}}
@@ -31,10 +33,12 @@ with \\(U\_1\\), \\(U\_2\\), \\(V\_1\\) and \\(V\_2\\) being unitary matrices.
 ### Presentation of the algorithm {#presentation-of-the-algorithm}
 
 To estimate the quantity
-\\[
-    c = \langle 0 \vert V\_2^\dagger U\_1 V\_1 \vert 0 \rangle \langle 0 \vert V\_1^\dagger
-    U\_2 V\_2 \vert 0 \rangle,
-    \\]
+
+\begin{equation\*}
+c = \langle 0 \vert V\_2^\dagger U\_1 V\_1 \vert 0 \rangle \langle 0 \vert V\_1^\dagger
+U\_2 V\_2 \vert 0 \rangle,
+\end{equation\*}
+
 the Hadamard-Overlap test executes the circuit below and perform a step of
 post-processing on the results of the measurements.
 
@@ -86,16 +90,19 @@ lightbox="true" >}}
 
 It is easy to show that, before the measurement of the ancilla qubit, the \\(n+1\\) qubits are in
 the state
-\\[
-     \vert \Psi \rangle = \frac{\textcolor{blue}{\vert 0 \rangle} \left( I + sU \right) \vert \psi \rangle + \textcolor{blue}{\vert 1 \rangle} \left( I - sU \right) \vert \psi \rangle}{2}
-     \\]
+
+\begin{equation\*}
+\vert \Psi \rangle = \frac{\textcolor{blue}{\vert 0 \rangle} \left( I + sU \right) \vert \psi \rangle + \textcolor{blue}{\vert 1 \rangle} \left( I - sU \right) \vert \psi \rangle}{2}
+\end{equation\*}
+
 where \\(I\\) is the identity operator and
-\\[
-     s = \left\\{\begin{split}
-     -i & \quad \text{if the } S^\dagger \text{ gate has been applied} \\\\\\
-     1 & \quad \text{otherwise}
-     \end{split}\right.
-     \\]
+
+\begin{equation\*}
+s = \left\\{\begin{split}
+-i & \quad \text{if the } S^\dagger \text{ gate has been applied} \\\\\\
+1 & \quad \text{otherwise}
+\end{split}\right.
+\end{equation\*}
 
 {{% alert note %}}
 Note that the state of the ancilla qubit has been colored in \\(\textcolor{blue}{\text{blue}}\\). This coloring is here to
@@ -134,9 +141,10 @@ With this modified version of the SWAP test, the test is successful (equivalent 
 the state \\(\vert 0 \rangle\\) with the original circuit) if and only if the bitwise-and of the
 bit-strings formed by \\(\left\\{ o\_i^1 \right\\}\_i\\) and \\(\left\\{ o\_i^2 \right\\}\_i\\) has an even
 number of ones. Mathematically, the test is successful if
-\\[
-     \sum\_{i=1}^n o\_i^1 \land o\_i^2 \equiv 0 \pmod{2}.
-     \\]
+
+\begin{equation\*}
+\sum\_{i=1}^n o\_i^1 \land o\_i^2 \equiv 0 \pmod{2}.
+\end{equation\*}
 
 The two test being equivalent in the sense that they provide the same results, they can
 be used interchangeably. We will use this equivalence in the next section to make the maths
@@ -164,21 +172,28 @@ state \\(\vert \psi \rangle\\), i.e.
 
 Replacing \\(U\\) and \\(\vert \psi \rangle\\) in the expression of the output state of the Hadamard test
 \\(\vert\Psi\rangle\\) by the values listed above gives us the quantum state
-\\[\begin{align}
-      \vert &\Psi\_{2n} \rangle = \frac{\textcolor{blue}{\vert 0 \rangle} \otimes \left( I + sU \right) \vert \psi \rangle + \textcolor{blue}{\vert 1 \rangle} \left( I - sU \right) \vert \psi \rangle}{2} \\\\\\
-      %&= \textcolor{blue}{\vert 0 \rangle} \otimes \frac{\left( I + s(U\_1 \otimes U\_2) \right) \vert S\_1 \rangle \vert S\_2 \rangle}{2} + \textcolor{blue}{\vert 1 \rangle} \otimes \frac{\left( I - s(U\_1 \otimes U\_2) \right) \vert S\_1 \rangle \vert S\_2 \rangle}{2} \\\\\\
-      &= \textcolor{blue}{\vert 0 \rangle} \frac{ \vert S\_1 \rangle \vert S\_2 \rangle + s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{2} + \textcolor{blue}{\vert 1 \rangle} \frac{ \vert S\_1 \rangle \vert S\_2 \rangle - s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{2} \\\\\\
-      \end{align}\\]
+
+\begin{equation\*}
+\begin{split}
+\vert &\Psi\_{2n} \rangle = \frac{\textcolor{blue}{\vert 0 \rangle} \otimes \left( I + sU \right) \vert \psi \rangle + \textcolor{blue}{\vert 1 \rangle} \left( I - sU \right) \vert \psi \rangle}{2} \\\\\\
+%&= \textcolor{blue}{\vert 0 \rangle} \otimes \frac{\left( I + s(U\_1 \otimes U\_2) \right) \vert S\_1 \rangle \vert S\_2 \rangle}{2} + \textcolor{blue}{\vert 1 \rangle} \otimes \frac{\left( I - s(U\_1 \otimes U\_2) \right) \vert S\_1 \rangle \vert S\_2 \rangle}{2} \\\\\\
+&= \textcolor{blue}{\vert 0 \rangle} \frac{ \vert S\_1 \rangle \vert S\_2 \rangle + s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{2} + \textcolor{blue}{\vert 1 \rangle} \frac{ \vert S\_1 \rangle \vert S\_2 \rangle - s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{2} \\\\\\
+\end{split}
+\end{equation\*}
 
 This means that, by ignoring the destructive SWAP test performed in the red squared part of the circuit,
 we have access to the quantum state
-\\[
-      \vert \phi\_{\textcolor{blue}{\vert 0 \rangle}} \rangle = \frac{ \vert S\_1 \rangle \vert S\_2 \rangle + s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}
-      \\]
+
+\begin{equation\*}
+\vert \phi\_{\textcolor{blue}{\vert 0 \rangle}} \rangle = \frac{ \vert S\_1 \rangle \vert S\_2 \rangle + s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}
+\end{equation\*}
+
 if we measured the first ancilla qubit in the state \\(\vert 0 \rangle\\) or
-\\[
-      \vert \phi\_{\textcolor{blue}{\vert 1 \rangle}} \rangle = \frac{ \vert S\_1 \rangle \vert S\_2 \rangle - s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}
-      \\]
+
+\begin{equation\*}
+\vert \phi\_{\textcolor{blue}{\vert 1 \rangle}} \rangle = \frac{ \vert S\_1 \rangle \vert S\_2 \rangle - s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}
+\end{equation\*}
+
 if the first ancilla qubit has been measured in the state \\(\vert 1 \rangle\\).
 
 {{% alert info %}}
@@ -207,9 +222,10 @@ In order to isolate correctly this _virtual_ ancilla qubit, its state will be co
 Finally, in order to avoid re-doing the computation for both \\(\vert \phi\_{\textcolor{blue}{\vert 0 \rangle}} \rangle\\)
 and \\(\vert \phi\_{\textcolor{blue}{\vert 1 \rangle}} \rangle\\) we will use a \\(\textcolor{blue}{\pm}\\) sign to account
 for both states (and \\(\textcolor{blue}{\mp}\\) if there is a sign negation):
-\\[
-      \vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle = \frac{ \vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}.
-      \\]
+
+\begin{equation\*}
+\vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle = \frac{ \vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}.
+\end{equation\*}
 
 {{% alert note %}}
 Note that, with the convention we chose for \\(\textcolor{blue}{\pm}\\) and \\(\textcolor{blue}{\mp}\\),
@@ -220,30 +236,45 @@ the lower-part of the \\(\textcolor{blue}{\pm}\\) or \\(\textcolor{blue}{\mp}\\)
 {{% /alert %}}
 
 Lets start the SWAP test by adding the virtual ancilla to the state:
-\\[
-      \vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle = \textcolor{red}{\vert 0 \rangle} \frac{ \vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}.
-      \\]
+
+\begin{equation\*}
+\vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle = \textcolor{red}{\vert 0 \rangle} \frac{ \vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}.
+\end{equation\*}
+
 Following the algorithm, we apply a \\(H\\) gate to the virtual ancilla:
-\\[
-      \vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle = \textcolor{red}{\frac{\vert 0 \rangle + \vert 1 \rangle}{\sqrt{2}}} \frac{ \vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}.
-      \\]
+
+\begin{equation\*}
+\vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle = \textcolor{red}{\frac{\vert 0 \rangle + \vert 1 \rangle}{\sqrt{2}}} \frac{ \vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle}{\sqrt{2}}.
+\end{equation\*}
+
 Performing the controlled-SWAP operation gives us the state
-\\[\begin{align}
-      \vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle =& \frac{ \textcolor{red}{\vert 0 \rangle} \left(\vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle \right)}{\sqrt{2} \textcolor{red}{\sqrt{2}}}\\\\\\
-      +& \frac{\textcolor{red}{\vert 1 \rangle} \left(\vert S\_2 \rangle \vert S\_1 \rangle \textcolor{blue}{\pm} s U\_2\vert S\_2 \rangle U\_1 \vert S\_1 \rangle \right)}{\sqrt{2} \textcolor{red}{\sqrt{2}}},
-      \end{align}\\]
+
+\begin{equation\*}
+\begin{split}
+\vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle =& \frac{ \textcolor{red}{\vert 0 \rangle} \left(\vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle \right)}{\sqrt{2} \textcolor{red}{\sqrt{2}}}\\\\\\
++& \frac{\textcolor{red}{\vert 1 \rangle} \left(\vert S\_2 \rangle \vert S\_1 \rangle \textcolor{blue}{\pm} s U\_2\vert S\_2 \rangle U\_1 \vert S\_1 \rangle \right)}{\sqrt{2} \textcolor{red}{\sqrt{2}}},
+\end{split}
+\end{equation\*}
+
 which will then finally be transformed by another \\(H\\) gate to
-\\[\begin{align}
-      \vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle =& \frac{ \left(\textcolor{red}{\vert 0 \rangle + \vert 1 \rangle}\right) \left(\vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle \right)}{\sqrt{2} \times \textcolor{red}{2}} \\\\\\
-      +& \frac{\left(\textcolor{red}{\vert 0 \rangle - \vert 1 \rangle}\right) \left(\vert S\_2 \rangle \vert S\_1 \rangle \textcolor{blue}{\pm} s U\_2\vert S\_2 \rangle U\_1 \vert S\_1 \rangle \right)}{\sqrt{2} \times \textcolor{red}{2}}
-      \end{align}\\]
+
+\begin{equation\*}
+\begin{split}
+\vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle =& \frac{ \left(\textcolor{red}{\vert 0 \rangle + \vert 1 \rangle}\right) \left(\vert S\_1 \rangle \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle \right)}{\sqrt{2} \times \textcolor{red}{2}} \\\\\\
++& \frac{\left(\textcolor{red}{\vert 0 \rangle - \vert 1 \rangle}\right) \left(\vert S\_2 \rangle \vert S\_1 \rangle \textcolor{blue}{\pm} s U\_2\vert S\_2 \rangle U\_1 \vert S\_1 \rangle \right)}{\sqrt{2} \times \textcolor{red}{2}}
+\end{split}
+\end{equation\*}
+
 Factorising by the state of the virtual ancilla, we obtain the expression
-\\[\begin{align}
-      \vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle =& \frac{ \textcolor{red}{\vert 0 \rangle} \left(\vert S\_1 \rangle \vert S\_2 \rangle + \vert S\_2 \rangle \vert S\_1 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_2\vert S\_2 \rangle U\_1 \vert S\_1 \rangle \right)}{2\sqrt{2}} \\\\\\
-      +& \frac{\textcolor{red}{\vert 1 \rangle} \left(\vert S\_1 \rangle \vert S\_2 \rangle - \vert S\_2 \rangle \vert S\_1 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle \textcolor{blue}{\mp} s U\_2\vert S\_2 \rangle U\_1 \vert S\_1 \rangle \right)}{2\sqrt{2}} \\\\\\
-      &\\\\\\
-      =& \frac{\textcolor{red}{\vert 0 \rangle} \vert \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{0} \rangle + \textcolor{red}{\vert 1 \rangle} \vert \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{1} \rangle}{2\sqrt{2}}
-      \end{align}\\]
+
+\begin{equation\*}
+\begin{split}
+\vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle =& \frac{ \textcolor{red}{\vert 0 \rangle} \left(\vert S\_1 \rangle \vert S\_2 \rangle + \vert S\_2 \rangle \vert S\_1 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle \textcolor{blue}{\pm} s U\_2\vert S\_2 \rangle U\_1 \vert S\_1 \rangle \right)}{2\sqrt{2}} \\\\\\
++& \frac{\textcolor{red}{\vert 1 \rangle} \left(\vert S\_1 \rangle \vert S\_2 \rangle - \vert S\_2 \rangle \vert S\_1 \rangle \textcolor{blue}{\pm} s U\_1\vert S\_1 \rangle U\_2 \vert S\_2 \rangle \textcolor{blue}{\mp} s U\_2\vert S\_2 \rangle U\_1 \vert S\_1 \rangle \right)}{2\sqrt{2}} \\\\\\
+&\\\\\\
+=& \frac{\textcolor{red}{\vert 0 \rangle} \vert \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{0} \rangle + \textcolor{red}{\vert 1 \rangle} \vert \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{1} \rangle}{2\sqrt{2}}
+\end{split}
+\end{equation\*}
 
 Because of the introduction of the virtual ancilla qubit, the state
 \\(\vert \phi\_{\textcolor{blue}{\vert i \rangle}} \rangle\\) is not exactly the state we would have with the
@@ -261,9 +292,10 @@ Conversely, let call \\(P\_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{1
 SWAP test.
 
 We have:
-\\[
-      P\_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{j}) = \frac{\langle \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \vert \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \rangle}{(2\sqrt{2})^2} = \frac{\langle \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \vert \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \rangle}{8}
-      \\]
+
+\begin{equation\*}
+P\_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{j}) = \frac{\langle \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \vert \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \rangle}{(2\sqrt{2})^2} = \frac{\langle \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \vert \Phi\_{\textcolor{blue}{\vert i \rangle}}^\textcolor{red}{j} \rangle}{8}
+\end{equation\*}
 
 Computing the exact values of the \\(4\\) possible \\(P\_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{j})\\) is quite easy as
 long as you are not afraid of **long** formulas and you remember the following identities:
@@ -276,53 +308,70 @@ long as you are not afraid of **long** formulas and you remember the following i
 
 Once the computations done, you should find the following equalities:
 
-\\[\begin{align}
-      P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^\*) + \vert \langle S\_1 \vert S\_2 \rangle\vert^2 + ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 + d\_s + e\_s\right]\\\\\\
-      P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^\*) - \vert \langle S\_1 \vert S\_2 \rangle\vert^2 - ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 + d\_s - e\_s\right]\\\\\\
-      P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^\*) + \vert \langle S\_1 \vert S\_2 \rangle\vert^2 + ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 - d\_s - e\_s\right]\\\\\\
-      P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^\*) - \vert \langle S\_1 \vert S\_2 \rangle\vert^2 - ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 - d\_s + e\_s\right]
-      \end{align}\\]
+\begin{equation\*}
+\begin{split}
+P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^\*) + \vert \langle S\_1 \vert S\_2 \rangle\vert^2 + ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 + d\_s + e\_s\right]\\\\\\
+P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^\*) - \vert \langle S\_1 \vert S\_2 \rangle\vert^2 - ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 + d\_s - e\_s\right]\\\\\\
+P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) &= \frac{1}{4} \left[ (1 + ss^\*) + \vert \langle S\_1 \vert S\_2 \rangle\vert^2 + ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 - d\_s - e\_s\right]\\\\\\
+P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{1}) &= \frac{1}{4} \left[ (1 + ss^\*) - \vert \langle S\_1 \vert S\_2 \rangle\vert^2 - ss^\* \vert \langle S\_1 \vert U\_1^\dagger U\_2 \vert S\_2 \rangle\vert^2 - d\_s + e\_s\right]
+\end{split}
+\end{equation\*}
+
 with
-\\[\begin{align}
-      d\_s &= s \langle S\_2 \vert U\_2 \vert S\_2 \rangle \langle S\_1 \vert U\_1 \vert S\_1\rangle + \left( s \langle S\_2 \vert U\_2 \vert S\_2 \rangle \langle S\_1 \vert U\_1 \vert S\_1\rangle \right)^\*\\\\\\
-      &= 2 \times \Re \left( s \langle S\_2 \vert U\_2 \vert S\_2 \rangle \langle S\_1 \vert U\_1 \vert S\_1\rangle \right)
-      \end{align}\\]
-\\[\begin{align}
-      e\_s &= s \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2\rangle + \left( s \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2\rangle \right)^\*\\\\\\
-      &= 2 \times \Re \left( s \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2\rangle \right)
-      \end{align}\\]
+
+\begin{equation\*}
+\begin{split}
+d\_s &= s \langle S\_2 \vert U\_2 \vert S\_2 \rangle \langle S\_1 \vert U\_1 \vert S\_1\rangle + \left( s \langle S\_2 \vert U\_2 \vert S\_2 \rangle \langle S\_1 \vert U\_1 \vert S\_1\rangle \right)^\*\\\\\\
+&= 2 \times \Re \left( s \langle S\_2 \vert U\_2 \vert S\_2 \rangle \langle S\_1 \vert U\_1 \vert S\_1\rangle \right)
+\end{split}
+\end{equation\*}
+
+\begin{equation\*}
+\begin{split}
+e\_s &= s \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2\rangle + \left( s \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2\rangle \right)^\*\\\\\\
+&= 2 \times \Re \left( s \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2\rangle \right)
+\end{split}
+\end{equation\*}
 
 Do you still remember our final goal ? It was to compute
-\\[
-      c = \langle 0 \vert V\_2^\dagger U\_1 V\_1 \vert 0 \rangle \langle 0 \vert V\_1^\dagger
-      U\_2 V\_2 \vert 0 \rangle.
-      \\]
+
+\begin{equation\*}
+c = \langle 0 \vert V\_2^\dagger U\_1 V\_1 \vert 0 \rangle \langle 0 \vert V\_1^\dagger
+U\_2 V\_2 \vert 0 \rangle.
+\end{equation\*}
 
 Remember also that we defined \\(\vert S\_i \rangle = V\_i \vert 0 \rangle\\). Including this in the definition of \\(c\\),
 we end up with
-\\[
-      c = \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2 \rangle.
-      \\]
+
+\begin{equation\*}
+c = \langle S\_2 \vert U\_1 \vert S\_1 \rangle \langle S\_1 \vert U\_2 \vert S\_2 \rangle.
+\end{equation\*}
 
 So the quantity \\(e\_s\\) is directly linked to \\(c\\) by the equality
-\\[e\_s = 2\times \Re(sc).\\]
+
+\begin{equation\*}e\_s = 2\times \Re(sc).\end{equation\*}
 
 But remember! \\(s\\) is not any complex, it can only take two values: \\(1\\) when the \\(S^\dagger\\) gate is
 not included in the Hadamard-Overlap circuit, \\(-i\\) otherwise. So we can compute the \\(2\\) possible values
 for \\(e\_s\\):
 
-\\[e\_1 = 2 \times \Re( c)\\]
-\\[e\_{-i} = 2 \times \Re(-ic) = 2 \times \Im( c)\\]
+\begin{equation\*}e\_1 = 2 \times \Re( c)\end{equation\*}
+
+\begin{equation\*}e\_{-i} = 2 \times \Re(-ic) = 2 \times \Im( c)\end{equation\*}
 
 Nice! This means that if we can estimate the values of \\(e\_1\\) and \\(e\_{-i}\\), we solve our problem!
 And looking at the value of each \\(P\_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{j})\\),
 we solved our problem because
-\\[e\_s = \left( P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) - P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{1}) \right) - \left( P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) - P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{1}) \right).\\]
+
+\begin{equation\*}e\_s = \left( P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) - P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{1}) \right) - \left( P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) - P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{1}) \right).\end{equation\*}
 
 Using the identity
-\\[P\_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{0}) = 1 - P\_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{1})\\]
+
+\begin{equation\*}P\_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{0}) = 1 - P\_{\textcolor{blue}{\vert i \rangle}}(\textcolor{red}{1})\end{equation\*}
+
 we can simplify this expression to
-\\[e\_s = 2 \left( P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) - P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) \right).\\]
+
+\begin{equation\*}e\_s = 2 \left( P\_{\textcolor{blue}{\vert 0 \rangle}}(\textcolor{red}{0}) - P\_{\textcolor{blue}{\vert 1 \rangle}}(\textcolor{red}{0}) \right).\end{equation\*}
 
 In other words, estimating \\(c\\) boils down to estimating the probabilities of success of the destructive SWAP test performed in
 the red squared part of the Hadamard-Overlap circuit for
@@ -336,7 +385,7 @@ the red squared part of the Hadamard-Overlap circuit for
 
 ### Summary of the method {#summary-of-the-method}
 
-To approximate \\[c = \langle 0 \vert V\_2^\dagger U\_1 V\_1 \vert 0 \rangle \langle 0 \vert V\_1^\dagger U\_2 V\_2 \vert 0 \rangle,\\] the algorithm works in 2 steps:
+To approximate \begin{equation\*}c = &lang; 0 &vert; V\_2^&dagger; U\_1 V\_1 &vert; 0 &rang; &lang; 0 &vert; V\_1^&dagger; U\_2 V\_2 &vert; 0 &rang;,\end{equation\*} the algorithm works in 2 steps:
 
 1.  Approximate the real-part of \\(c\\).
 2.  Approximate the imaginary-part of \\(c\\).
