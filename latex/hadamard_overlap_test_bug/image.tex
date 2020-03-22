@@ -1,0 +1,101 @@
+\documentclass[convert={density=1000,outext=.png}]{standalone}
+
+\newcommand{\ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
+
+\usepackage{../quantumcircuit}
+\usetikzlibrary{backgrounds}
+
+\begin{document}
+\begin{tikzpicture}[background rectangle/.style={fill=white}, show background rectangle]
+  \let\qmwires\empty
+  % define initial positions of the quantum wires
+  \xdef\dy{0.9}
+  \defgateminsize[1.2em];
+  \defwire (A) at ({-\dy});
+  \defwire (B) at ({-2*\dy});
+  \defwire (C) at ({-2.5*\dy});
+  \defwire (D) at ({-3*\dy});
+  \defwire (E) at ({-3.5*\dy});
+  \defwire (F) at ({-4*\dy});
+  \defwire (G) at ({-5*\dy});
+  \defwire (H) at ({-5.5*\dy});
+  \defwire (I) at ({-6*\dy});
+  \defwire (J) at ({-6.5*\dy});
+  \defwire (K) at ({-7*\dy});
+   % draw wires
+  \xdef\dt{1}
+  \drawwires [\dt] (3);
+  \drawwire [\dt] (A) (3) (4);
+  \drawwire [\dt] (B) (3) (4);
+  \drawwire [\dt] (F) (3) (4);
+  \drawwire [\dt] (G) (3) (4);
+  \drawwire [\dt] (K) (3) (4);
+  \drawlastmeasurewire [\dt] (A) (7) (1);
+  \drawlastmeasurewire [\dt] (B) (7) (1);
+  \drawlastmeasurewire [\dt] (F) (7) (1);
+  \drawlastmeasurewire [\dt] (G) (7) (1);
+  \drawlastmeasurewire [\dt] (K) (7) (1);
+  % Draw gates
+  \gate (A-1) [$H$];
+  \gate (B-1) [$R_y(\alpha_0)$];
+  \gate (C-1) [$R_y(\alpha_1)$];
+  \gate (D-1) [$R_y(\alpha_2)$];
+  \gate (E-1) [$R_y(\alpha_3)$];
+  \gate (F-1) [$R_y(\alpha_4)$];
+  \gate (G-1) [$H$];
+  \gate (I-1) [$H$];
+  \gate (J-1) [$H$];
+  \gate (K-1) [$H$];
+  \ctrlgate (A-2) (G-2) [$X$];
+  \ctrlgate (A-3) (H-3) [$Z$];
+  \cnotgate (B-4) (G-4);
+  \cnotgate (F-5) (K-5);
+  \dotlink (B-4) (F-5);
+  \dotlink (G-4) (K-5);
+  \gatebackgroundcolor{blue}{%
+    \gate (A-5) [$S^\dagger$];
+  }
+  \gate (A-6) [$H$];
+  \gate (B-6) [$H$];
+  \dotlink (B-6) (F-6);
+  \gate (F-6) [$H$];
+  \meas (A-7) [z];
+  \meas (B-7) [z];
+  \dotlink (B-7) (F-7);
+  \meas (F-7) [z];
+  \meas (G-7) [z];
+  \dotlink (G-7) (K-7);
+  \meas (K-7) [z];
+  % Draw outputs/inputs
+  \inputlabel  (A-0)  [$\ket{ 0 }$];
+  \inputlabel  (B-0)  [$\ket{ 0 }$];
+  \inputlabel  (C-0)  [$\ket{ 0 }$];
+  \inputlabel  (D-0)  [$\ket{ 0 }$];
+  \inputlabel  (E-0)  [$\ket{ 0 }$];
+  \inputlabel  (F-0)  [$\ket{ 0 }$];
+  \inputlabel  (G-0)  [$\ket{ 0 }$];
+  \inputlabel  (H-0)  [$\ket{ 0 }$];
+  \inputlabel  (I-0)  [$\ket{ 0 }$];
+  \inputlabel  (J-0)  [$\ket{ 0 }$];
+  \inputlabel  (K-0)  [$\ket{ 0 }$];
+  \outputlabel (A-8)  [$o_a$];
+  \outputlabel (B-8)  [$o_1^1$];
+  \outputlabel (F-8)  [$o_n^1$];
+  \outputlabel (G-8)  [$o_1^2$];
+  \outputlabel (K-8)  [$o_n^2$];
+  % Draw a red box around the destructive SWAP test
+  \node [draw=red, fit=(B-4)(G-4)(K-5)(B-7)(K-7), outer sep=0pt, dashed, thick] (dSWAPtest) {};
+  % Draw the remaining wires
+  \draw let \p1=(C-3), \p2=(dSWAPtest.west) in (\x1, \y1) -- (\x2, \y1);
+  \draw let \p1=(D-3), \p2=(dSWAPtest.west) in (\x1, \y1) -- (\x2, \y1);
+  \draw let \p1=(E-3), \p2=(dSWAPtest.west) in (\x1, \y1) -- (\x2, \y1);
+  \draw let \p1=(H-3.east), \p2=(dSWAPtest.west) in (\x1, \y1) -- (\x2, \y1);
+  \draw let \p1=(I-3), \p2=(dSWAPtest.west) in (\x1, \y1) -- (\x2, \y1);
+  \draw let \p1=(J-3), \p2=(dSWAPtest.west) in (\x1, \y1) -- (\x2, \y1);
+\end{tikzpicture}
+\end{document}
+
+% Local Variables:
+% TeX-command-extra-options: "-shell-escape"
+% End:
