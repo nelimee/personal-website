@@ -1,5 +1,4 @@
-\documentclass[convert={density=1000,outext=.png}]{standalone}
-
+\documentclass[crop,tikz,convert={outext=.svg,command=\unexpanded{pdf2svg \infile\space\outfile}},multi=false]{standalone}
 \newcommand{\ket}[1]{\ensuremath{\left\vert #1 \right\rangle}}
 \newcommand{\bra}[1]{\ensuremath{\left\langle #1 \right\vert}}
 
