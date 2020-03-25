@@ -3,6 +3,7 @@ title = "Hadamard-Overlap test – the corner case"
 author = ["Adrien Suau"]
 date = 2020-02-28
 draft = false
+toc = true
 +++
 
 _This post follows a [previous post]({{< ref "/post/2020-02-05-understanding-the-hadamard-overlap-test.md" >}})_

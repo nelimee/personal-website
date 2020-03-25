@@ -10,6 +10,7 @@
    :PROPERTIES:
    :EXPORT_FILE_NAME: 2020-02-05-understanding-the-hadamard-overlap-test
    :EXPORT_DATE: 2020-02-05
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
    :END:
 
    The Hadamard test is a quantum algorithm that can approximate the value 
@@ -391,6 +392,7 @@
    :PROPERTIES:
    :EXPORT_FILE_NAME: 2020-02-28-hadamard-overlap-test-the-corner-case
    :EXPORT_DATE: 2020-02-28
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
    :END:
 
    /This post follows a [previous post]({{< ref "/post/2020-02-05-understanding-the-hadamard-overlap-test.md" >}})/

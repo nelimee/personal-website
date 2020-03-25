@@ -3,6 +3,7 @@ title = "Understanding the Hadamard-Overlap test"
 author = ["Adrien Suau"]
 date = 2020-02-05
 draft = false
+toc = true
 +++
 
 The Hadamard test is a quantum algorithm that can approximate the value
