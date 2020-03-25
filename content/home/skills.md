@@ -44,4 +44,28 @@ subtitle = ""
   name = "Gitlab"
   description = "Basic features"
 
+[[feature]]
+  icon = "edit"
+  icon_pack = "fas"
+  name = "Emacs"
+  description = "Regular user"
+
+[[feature]]
+  icon = "language"
+  icon_pack = "fas"
+  name = "French"
+  description = "Native"
+
+[[feature]]
+  icon = "language"
+  icon_pack = "fas"
+  name = "English"
+  description = "Fluent"
+
+[[feature]]
+  icon = "language"
+  icon_pack = "fas"
+  name = "Japanese"
+  description = "Beginner"
+
 +++
