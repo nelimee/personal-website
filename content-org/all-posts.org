@@ -388,7 +388,7 @@
           research articles will be cited in the main text with their title and a link pointing
           to the article and at the end of the post with a format that mimics the usual citation
           format of research articles.
-** Hadamard-Overlap test -- the corner case
+** TODO Hadamard-Overlap test -- the corner case
    :PROPERTIES:
    :EXPORT_FILE_NAME: 2020-02-28-hadamard-overlap-test-the-corner-case
    :EXPORT_DATE: 2020-02-28

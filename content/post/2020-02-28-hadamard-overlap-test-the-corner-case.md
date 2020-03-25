@@ -2,7 +2,7 @@
 title = "Hadamard-Overlap test – the corner case"
 author = ["Adrien Suau"]
 date = 2020-02-28
-draft = false
+draft = true
 toc = true
 +++
 
@@ -187,3 +187,10 @@ U\_j \vert S\_j \rangle = e^{i\theta\_j} \vert S\_j \rangle.
 So here is the answer! The Hadamard-Overlap post-processing described in
 [Understanding the Hadamard-Overlap test]({{< ref "/post/2020-02-05-understanding-the-hadamard-overlap-test.md" >}})
 is not valid when the state prepared by \\(V\_1\\) (resp. \\(V\_2\\)) is an eigenstate of \\(U\_1\\) (resp. \\(U\_2\\)).
+
+
+## Adapting the Hadamard-Overlap algorithm {#adapting-the-hadamard-overlap-algorithm}
+
+Now that we understood the problem, it should be fixed. The first step will be to re-do the computations of
+[Understanding the Hadamard-Overlap test]({{< ref "/post/2020-02-05-understanding-the-hadamard-overlap-test.md" >}})
+in order to
