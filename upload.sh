@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 START_DIR=$(pwd)
-BLOG_DIR="${HOME}/personnel/blog"
+BLOG_DIR=`realpath "$0" | xargs dirname`
 
 cd "$BLOG_DIR"
 echo "Updating blog static content..."
