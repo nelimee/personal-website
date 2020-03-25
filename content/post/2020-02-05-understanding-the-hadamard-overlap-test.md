@@ -159,10 +159,8 @@ In the rest of this post I assume that the ancilla qubit of the Hadamard-test is
 a superposition of \\(\vert 0 \rangle\\) and \\(\vert 1 \rangle\\), i.e. that the coefficients
 in front of each outcomes is **not** $0.
 
-This assumption is not verified in some cases. Theses cases are studied in a following
-post:
-[Hadamard-Overlap test -- the corner case]({{< ref "/post/2020-02-28-hadamard-overlap-test-the-corner-case.md" >}}).
-{{% /alert %}}
+This assumption is not verified in some cases. Theses cases will be studied in a following
+post
 
 
 #### Hadamard test {#hadamard-test}
