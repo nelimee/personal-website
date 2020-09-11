@@ -5,4 +5,4 @@ function delayedfirefox {
 	firefox localhost:1313
 }
 delayedfirefox &
-hugo --i18n-warnings server
+hugo -D --i18n-warnings server
