@@ -16,6 +16,8 @@ personally did not until reading
 [Variational Quantum Linear Solver: A Hybrid Algorithm for Linear Systems](<http://arxiv.org/abs/1909.05820v1>)
 [^2].
 
+<!--more-->
+
 The goal of the Hadamard-Overlap test is to estimate the quantity
 
 \begin{equation\*}
@@ -161,6 +163,8 @@ in front of each outcomes is **not** $0.
 
 This assumption is not verified in some cases. Theses cases will be studied in a following
 post
+
+{{% /alert %}}
 
 
 #### Hadamard test {#hadamard-test}
