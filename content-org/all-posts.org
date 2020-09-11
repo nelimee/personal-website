@@ -6,7 +6,7 @@
 
 * Quantum Computing
   Posts about quantum computing in general.
-** Understanding the Hadamard-Overlap test
+** TODO Understanding the Hadamard-Overlap test
    :PROPERTIES:
    :EXPORT_FILE_NAME: 2020-02-05-understanding-the-hadamard-overlap-test
    :EXPORT_DATE: 2020-02-05
